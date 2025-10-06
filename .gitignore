@@ -1,0 +1,26 @@
+# Virtual environment directory
+venv/
+
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Output files from the API call
+weather_data.json
+
+# Log files
+*.log
+
+# Environment variables file
+# The .env file contains secrets and should not be committed.
+.env
+
+# Files created by various editors and operating systems
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# PyCharm (for example)
+.idea/
