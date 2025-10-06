@@ -20,10 +20,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build and run Docker container
-        run: |
-          docker build -t weather-ingest .
-          docker run --env WEATHER_API_KEY="${{ secrets.WEATHER_API_KEY }}" --env CITY="${{ github.event.inputs.city }}" weather-ingest
+      - name: Build Docker container
+        run: docker build -t weather-ingest .
+
+      - name: Run Docker container
+        run: docker run --env WEATHER_API_KEY="${{ secrets.WEATHER_API_KEY }}" --env CITY="${{ github.event.inputs.city }}" weather-ingest
 
       - name: Commit and push weather_data.json
         # This step is conditional, only running on the schedule or on manual trigger.
