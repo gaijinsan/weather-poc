@@ -24,3 +24,4 @@ weather_data.json
 
 # PyCharm (for example)
 .idea/
+ingest.py
