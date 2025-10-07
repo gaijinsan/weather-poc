@@ -12,7 +12,7 @@ if not api_key:
     sys.exit(1)
 
 # Attempt to retrieve the city, providing a default if it's not set
-city = os.environ.get('CITY', 'Toronto')
+city = os.environ.get('CITY', 'Toronto') or 'Toronto'
 
 request_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
 
