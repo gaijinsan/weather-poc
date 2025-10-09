@@ -16,6 +16,11 @@ jobs:
           mkdir data
           chmod 777 data
 
+      - name: Verify data directory attributes
+        run: |
+          ls -la data/
+          echo "Current user is: $(whoami)"
+
       - name: Run docker compose
         run: docker compose up --build --abort-on-container-exit
         env:

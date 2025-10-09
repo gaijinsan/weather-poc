@@ -1,6 +1,7 @@
 import express from 'express';
 import type { Request, Response } from 'express';
 import fs from 'fs';
+import path from 'path'; // Import the path module
 
 const app = express();
 const port = 3000;
@@ -17,15 +18,30 @@ app.post('/weather', (req: Request, res: Response) => {
         processingTimestamp: new Date().toISOString()
     };
 
-    // Write the processed data to a file
-    fs.appendFile('processed_weather_data.json', JSON.stringify(processedData) + '\n', (err) => {
-        if (err) {
-            console.error('Failed to write data:', err);
-            return res.status(500).send('Failed to write data');
-        }
+    // Define the output path relative to the app directory
+    const outputPath = path.join(__dirname, '..', '..', 'data', 'processed_weather_data.json');
+    console.log('Attempting to write to:', outputPath);
+
+    try {
+        await fs.promises.appendFile(outputPath, JSON.stringify(processedData) + '\n');
         console.log('Data saved successfully');
-        return res.status(200).send('Data processed and saved');
-    });
+
+        // Verify the file exists and is not empty
+        const stats = await fs.promises.stat(outputPath);
+        if (stats.size > 0) {
+            console.log('File successfully created and is not empty.');
+        } else {
+            console.error('Error: File was created but is empty.');
+            return res.status(500).send('Error: File created but is empty.');
+        }
+
+        res.status(200).send('Data processed and saved');
+
+    } catch (err) {
+        console.error('Failed to write or verify data:', err);
+        return res.status(500).send('Failed to write data');
+    }
+
 });
 
 app.listen(port, () => {
