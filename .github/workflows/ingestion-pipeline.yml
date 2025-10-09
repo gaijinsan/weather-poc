@@ -14,8 +14,8 @@ jobs:
       - name: Create data directory
         run: mkdir data
 
-      - name: Run docker-compose
-        run: docker-compose up --build --abort-on-container-exit
+      - name: Run docker compose
+        run: docker compose up --build --abort-on-container-exit
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
           CITY_NAME: "Ottawa"
