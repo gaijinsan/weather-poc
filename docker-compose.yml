@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  api-service:
+    build: ./api-service
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/usr/src/app/data
+  ingestion-service:
+    build: ./ingestion-service
+    environment:
+      - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
+      - CITY_NAME=${CITY_NAME}
+    depends_on:
+      - api-service

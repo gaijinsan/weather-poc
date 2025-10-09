@@ -1,0 +1,28 @@
+name: Ingestion Pipeline POC
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Daily at midnight
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create data directory
+        run: mkdir data
+
+      - name: Run docker-compose
+        run: docker-compose up --build --abort-on-container-exit
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          CITY_NAME: "Ottawa"
+
+      - name: Upload processed data as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: processed-weather-data
+          path: data/processed_weather_data.json
+
