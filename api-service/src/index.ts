@@ -1,7 +1,12 @@
 import express from 'express';
 import type { Request, Response } from 'express';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path'; // Import the path module
+import { fileURLToPath } from 'url';
+
+// Replicate __dirname functionality for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
@@ -19,7 +24,7 @@ app.post('/weather', async (req: Request, res: Response) => {
     };
 
     // Define the output path relative to the app directory
-    const outputPath = path.join(__dirname, '..', '..', 'data', 'processed_weather_data.json');
+    const outputPath = path.join(__dirname, '..', 'data', 'processed_weather_data.json');
     console.log('Attempting to write to:', outputPath);
 
     try {
