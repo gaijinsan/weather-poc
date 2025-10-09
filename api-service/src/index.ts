@@ -8,7 +8,7 @@ const port = 3000;
 app.use(express.json());
 
 // Define a POST endpoint to receive weather data
-app.post('/weather', (req: Request, res: Response) => {
+app.post('/weather', async (req: Request, res: Response) => {
     const data = req.body;
     console.log('Received data:', data);
 
