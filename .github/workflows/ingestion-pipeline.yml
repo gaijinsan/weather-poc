@@ -12,7 +12,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create data directory
-        run: mkdir data
+        run: |
+          mkdir data
+          chmod 777 data
 
       - name: Run docker compose
         run: docker compose up --build --abort-on-container-exit
