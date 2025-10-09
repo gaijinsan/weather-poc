@@ -1,6 +1,6 @@
 import express from 'express';
 import type { Request, Response } from 'express';
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path'; // Import the path module
 import { fileURLToPath } from 'url';
 
